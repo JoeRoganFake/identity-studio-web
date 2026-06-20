@@ -93,6 +93,7 @@ class HeroSection extends StatelessWidget {
                     CustomButton(
                       label: AppStrings.heroCtaServices,
                       variant: ButtonVariant.outlined,
+                      textColor: AppColors.primaryPink,
                       onTap: () => context.go(AppRoutes.services),
                     ).animate().fadeIn(duration: 600.ms, delay: 900.ms),
                   ],
