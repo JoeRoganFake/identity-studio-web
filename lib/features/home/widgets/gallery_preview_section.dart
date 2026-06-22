@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/widgets/common/section_title.dart';
 import '../../../../core/widgets/common/custom_button.dart';
-import '../../../../core/widgets/common/placeholder_image.dart';
 
-class GalleryPreviewSection extends StatelessWidget {
+class GalleryPreviewSection extends StatefulWidget {
   const GalleryPreviewSection({super.key});
+
+  @override
+  State<GalleryPreviewSection> createState() => _GalleryPreviewSectionState();
+}
+
+class _GalleryPreviewSectionState extends State<GalleryPreviewSection> {
+  late List<String> _galleryImages;
+
+  @override
+  void initState() {
+    super.initState();
+    _galleryImages = [
+      'assets/images/gallery/nechty.jpg',
+      'assets/images/gallery/nechty2.jpg',
+      'assets/images/gallery/vlasy.jpg',
+      'assets/images/gallery/vlasy2.jpg',
+      'assets/images/gallery/vlasy3.jpg',
+      'assets/images/gallery/voutcher.jpg',
+    ];
+    _galleryImages.shuffle();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +52,14 @@ class GalleryPreviewSection extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           GestureDetector(
-            // TODO: open https://www.instagram.com/identity_beauty_studio
-            onTap: () {},
+            onTap: () async {
+              final url = Uri.parse(
+                'https://www.instagram.com/identity_beauty_studio/?hl=en',
+              );
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              }
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -50,7 +77,7 @@ class GalleryPreviewSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 52),
-          // TODO: Replace all placeholders with real gallery images
+          // Photo grid — first 4 (mobile) or 6 (desktop) shuffled images
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -60,8 +87,25 @@ class GalleryPreviewSection extends StatelessWidget {
               mainAxisSpacing: isMobile ? 8 : 12,
             ),
             itemCount: photoCount,
-            itemBuilder: (_, i) => PlaceholderImage(
-              label: 'Foto ${i + 1}\n(TODO)',
+            itemBuilder: (_, i) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: AppColors.cream,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  _galleryImages[i],
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Center(
+                    child: Text(
+                      'Image\nfailed',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.bodyMuted,
+                    ),
+                  ),
+                ),
+              ),
             ).animate().fadeIn(delay: Duration(milliseconds: 80 * i)),
           ),
           const SizedBox(height: 44),

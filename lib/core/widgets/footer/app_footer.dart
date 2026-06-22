@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text_styles.dart';
 import '../../constants/app_strings.dart';
 import '../../constants/app_routes.dart';
+import '../common/logo_widget.dart';
 
 class AppFooter extends StatelessWidget {
   const AppFooter({super.key});
@@ -89,18 +91,7 @@ class AppFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.appName,
-          style: AppTextStyles.headingMedium.copyWith(color: AppColors.white),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          AppStrings.tagline,
-          style: AppTextStyles.bodyMuted.copyWith(
-            color: const Color(0xFF8C8C8C),
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        const LogoHorizontal(dark: true, markSize: 44),
         const SizedBox(height: 20),
         Text(
           AppStrings.website,
@@ -150,8 +141,14 @@ class AppFooter extends StatelessWidget {
         _contactRow(Icons.location_on_outlined, AppStrings.contactAddress),
         const SizedBox(height: 12),
         GestureDetector(
-          // TODO: open https://www.instagram.com/identity_beauty_studio
-          onTap: () {},
+          onTap: () async {
+            final url = Uri.parse(
+              'https://www.instagram.com/identity_beauty_studio/?hl=en',
+            );
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url, mode: LaunchMode.externalApplication);
+            }
+          },
           child: Text(
             AppStrings.contactInstagram,
             style: AppTextStyles.bodyMuted.copyWith(color: AppColors.primaryPink),

@@ -47,6 +47,7 @@ class AppStrings {
   static const String serviceBeautyLong =
       'Čistenie pleti, úprava obočia a mihalníc, permanentný make-up, laminovanie rias a obočia a ďalšie beauty procedúry.';
   static const String servicesViewAll = 'Zobraziť všetky služby';
+  static const String bookNow = 'Rezervovať teraz';
 
   // About
   static const String aboutSectionLabel = 'O nás';
@@ -62,7 +63,6 @@ class AppStrings {
   static const String gallerySectionTitle = 'Naša práca\nhovorí za nás';
   static const String galleryInstagram = 'Sledujte nás na Instagrame';
   static const String galleryInstagramHandle = '@identity_beauty_studio';
-  // TODO: Instagram URL: https://www.instagram.com/identity_beauty_studio
   static const String galleryViewAll = 'Zobraziť celú galériu';
 
   // Team

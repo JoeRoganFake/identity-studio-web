@@ -4,6 +4,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_text_styles.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_strings.dart';
+import '../common/logo_widget.dart';
 
 class MobileDrawer extends StatelessWidget {
   const MobileDrawer({super.key});
@@ -27,7 +28,7 @@ class MobileDrawer extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(28, 32, 28, 20),
-              child: Text(AppStrings.appName, style: AppTextStyles.headingMedium),
+              child: const LogoHorizontal(markSize: 38),
             ),
             Container(height: 1, color: AppColors.border),
             const SizedBox(height: 16),

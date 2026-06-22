@@ -77,13 +77,10 @@ class AppNavbar extends StatelessWidget {
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
                             onTap: () => context.go(AppRoutes.home),
-                            child: AnimatedDefaultTextStyle(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                              style: AppTextStyles.headingMedium.copyWith(
-                                color: isScrolled ? AppColors.accent : AppColors.darkText,
-                              ),
-                              child: const Text(AppStrings.appName),
+                            child: Image.asset(
+                              'assets/images/logos/logow.png',
+                              height: 80,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),

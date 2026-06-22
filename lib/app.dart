@@ -37,6 +37,8 @@ final _router = GoRouter(
           path: AppRoutes.contact,
           pageBuilder: (_, _) => const NoTransitionPage(child: ContactPage()),
         ),
+     
+       
       ],
     ),
   ],
@@ -67,18 +69,20 @@ class _AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: const MobileDrawer(),
-      body: Stack(
+      body: Column(
         children: [
-          // Page content fills the full viewport — navbar floats over it.
-          // BackdropFilter samples this layer to create the frosted glass effect.
-          RepaintBoundary(child: child),
-          // Navbar floats on top and can slide out of view on scroll-down.
-          const Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: AppNavbar(),
+          Expanded(
+            child: Stack(
+              children: [
+                // Page content fills the full viewport — navbar floats over it.
+                // BackdropFilter samples this layer to create the frosted glass effect.
+                RepaintBoundary(child: child),
+                // Navbar floats on top and can slide out of view on scroll-down.
+                const Positioned(top: 0, left: 0, right: 0, child: AppNavbar()),
+              ],
+            ),
           ),
+          // GDPR banner at the bottom
         ],
       ),
     );

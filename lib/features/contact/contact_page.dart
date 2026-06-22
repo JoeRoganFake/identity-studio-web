@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/constants/app_strings.dart';
@@ -109,8 +110,14 @@ class _ContactInfo extends StatelessWidget {
         Text('Sociálne siete', style: AppTextStyles.headingSmall),
         const SizedBox(height: 16),
         GestureDetector(
-          // TODO: open https://www.instagram.com/identity_beauty_studio
-          onTap: () {},
+          onTap: () async {
+            final url = Uri.parse(
+              'https://www.instagram.com/identity_beauty_studio/?hl=en',
+            );
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url, mode: LaunchMode.externalApplication);
+            }
+          },
           child: Row(
             children: [
               const Icon(

@@ -18,10 +18,13 @@ class _PageWrapperState extends State<PageWrapper> {
   @override
   void initState() {
     super.initState();
-    // Reset header scroll state whenever a new page loads.
-    navbarScrolled.value = false;
-    navbarVisible.value = true;
     _lastPixels = 0;
+    // Reset header scroll state after the current build phase completes.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      navbarScrolled.value = false;
+      navbarVisible.value = true;
+    });
   }
 
   @override

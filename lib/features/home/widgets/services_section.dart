@@ -28,17 +28,20 @@ class ServicesSection extends StatelessWidget {
     _ServiceData(
       name: AppStrings.serviceWomensHair,
       desc: AppStrings.serviceWomensHairDesc,
-      icon: Icons.face,
+      icon: Icons.content_cut,
+      imagePath: 'assets/images/services/vlasy.jpg',
     ),
     _ServiceData(
       name: AppStrings.serviceMensHair,
       desc: AppStrings.serviceMensHairDesc,
       icon: Icons.content_cut,
+      imagePath: 'assets/images/services/vlasy2.jpg',
     ),
     _ServiceData(
       name: AppStrings.serviceBeauty,
       desc: AppStrings.serviceBeautyDesc,
       icon: Icons.star_outline,
+      imagePath: 'assets/images/services/style.jpg',
     ),
   ];
 
@@ -147,7 +150,13 @@ class _ScrollRevealState extends State<_ScrollReveal>
     _slide = Tween<Offset>(begin: _hiddenOffset, end: Offset.zero)
         .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => _check());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        Future.delayed(widget.delay, () {
+          if (mounted) _ctrl.forward();
+        });
+      }
+    });
   }
 
   @override
@@ -176,19 +185,11 @@ class _ScrollRevealState extends State<_ScrollReveal>
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (_) {
-        _check();
-        return false;
-      },
-      child: FadeTransition(
-        opacity: _opacity,
-        child: ScaleTransition(
-          scale: _scale,
-          child: SlideTransition(
-            position: _slide,
-            child: widget.child,
-          ),
+    return FadeTransition(
+      opacity: _opacity,
+      child: ScaleTransition(
+        scale: _scale,
+        child: SlideTransition(position: _slide, child: widget.child,
         ),
       ),
     );

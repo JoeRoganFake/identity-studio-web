@@ -6,6 +6,7 @@ import '../../../core/constants/app_strings.dart';
 import '../../../core/widgets/common/section_title.dart';
 import '../../../core/widgets/common/placeholder_image.dart';
 import '../../../core/widgets/common/page_wrapper.dart';
+import '../../../core/widgets/common/custom_button.dart';
 
 class ServicesPage extends StatelessWidget {
   const ServicesPage({super.key});
@@ -16,30 +17,35 @@ class ServicesPage extends StatelessWidget {
       shortDesc: AppStrings.serviceManicureDesc,
       longDesc: AppStrings.serviceManicureLong,
       icon: Icons.brush,
+      imagePath: 'assets/images/services/manikura.jpg',
     ),
     _ServiceDetail(
       name: AppStrings.servicePedicure,
       shortDesc: AppStrings.servicePedicureDesc,
       longDesc: AppStrings.servicePedicureLong,
       icon: Icons.spa,
+      imagePath: 'assets/images/services/pedikura.jpg',
     ),
     _ServiceDetail(
       name: AppStrings.serviceWomensHair,
       shortDesc: AppStrings.serviceWomensHairDesc,
       longDesc: AppStrings.serviceWomensHairLong,
       icon: Icons.face,
+      imagePath: 'assets/images/services/vlasy.jpg',
     ),
     _ServiceDetail(
       name: AppStrings.serviceMensHair,
       shortDesc: AppStrings.serviceMensHairDesc,
       longDesc: AppStrings.serviceMensHairLong,
       icon: Icons.content_cut,
+      imagePath: 'assets/images/services/vlasy2.jpg',
     ),
     _ServiceDetail(
       name: AppStrings.serviceBeauty,
       shortDesc: AppStrings.serviceBeautyDesc,
       longDesc: AppStrings.serviceBeautyLong,
       icon: Icons.star_outline,
+      imagePath: 'assets/images/services/style.jpg',
     ),
   ];
 
@@ -117,6 +123,14 @@ class _ServiceDetailRow extends StatelessWidget {
           Text(service.shortDesc, style: AppTextStyles.bodyMuted),
           const SizedBox(height: 12),
           Text(service.longDesc, style: AppTextStyles.bodyLarge),
+          const SizedBox(height: 28),
+          CustomButton(
+            label: AppStrings.bookNow,
+            onTap: () async {
+              // Analytics log
+              // await AnalyticsService().logReservationAttempt('fresha');
+            },
+          ),
         ],
       ),
     );
@@ -124,8 +138,16 @@ class _ServiceDetailRow extends StatelessWidget {
     final imageBlock = Expanded(
       child: SizedBox(
         height: 300,
-        // TODO: Replace with real service image
-        child: PlaceholderImage(label: '${service.name}\nfotografia (TODO)'),
+        child: service.imagePath != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  service.imagePath!,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              )
+            : PlaceholderImage(label: '${service.name}\nfotografia (TODO)'),
       ),
     );
 
@@ -151,11 +173,13 @@ class _ServiceDetail {
   final String shortDesc;
   final String longDesc;
   final IconData icon;
+  final String? imagePath;
 
   const _ServiceDetail({
     required this.name,
     required this.shortDesc,
     required this.longDesc,
     required this.icon,
+    this.imagePath,
   });
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_strings.dart';
@@ -87,8 +88,18 @@ class HeroSection extends StatelessWidget {
                   children: [
                     CustomButton(
                       label: AppStrings.heroCtaBook,
-                      // TODO: launch Fresha / Notino booking URL
-                      onTap: () {},
+                      onTap: () async {
+                        // TODO: Replace with your actual Fresha booking URL
+                        final url = Uri.parse(
+                          'https://identity-studio.fresha.com',
+                        );
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(
+                            url,
+                            mode: LaunchMode.externalApplication,
+                          );
+                        }
+                      },
                     ).animate().fadeIn(duration: 600.ms, delay: 700.ms),
                     CustomButton(
                       label: AppStrings.heroCtaServices,
