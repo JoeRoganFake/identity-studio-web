@@ -88,18 +88,7 @@ class HeroSection extends StatelessWidget {
                   children: [
                     CustomButton(
                       label: AppStrings.heroCtaBook,
-                      onTap: () async {
-                        // TODO: Replace with your actual Fresha booking URL
-                        final url = Uri.parse(
-                          'https://identity-studio.fresha.com',
-                        );
-                        if (await canLaunchUrl(url)) {
-                          await launchUrl(
-                            url,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        }
-                      },
+                      onTap: () => _showBookingDialog(context),
                     ).animate().fadeIn(duration: 600.ms, delay: 700.ms),
                     CustomButton(
                       label: AppStrings.heroCtaServices,
@@ -142,6 +131,81 @@ class HeroSection extends StatelessWidget {
                 ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showBookingDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: AppColors.lightBlush,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 48),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/logos/logocenter.png',
+              height: 90,
+            ),
+            const SizedBox(height: 32),
+            Text(
+              'Rezervovať termín',
+              style: AppTextStyles.headingMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Vyberte typ služby',
+              style: AppTextStyles.bodyMuted,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 40),
+            SizedBox(
+              width: double.infinity,
+              child: CustomButton(
+                label: 'Manikúra & Pedikúra',
+                variant: ButtonVariant.outlined,
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final url = Uri.parse(AppStrings.bookingUrlManicure);
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: CustomButton(
+                label: 'Kaderníctvo',
+                variant: ButtonVariant.outlined,
+                onTap: () async {
+                  Navigator.of(ctx).pop();
+                  final url = Uri.parse(AppStrings.bookingUrlHair);
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url, mode: LaunchMode.externalApplication);
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 24),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(
+                'Zrušiť',
+                style: AppTextStyles.bodyMuted,
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(ctx).viewInsets.bottom),
+          ],
+        ),
       ),
     );
   }

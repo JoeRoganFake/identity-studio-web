@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'app.dart';
+import 'core/widgets/common/map_view_registry.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerMapViewFactory();
 
   // Initialize GDPR consent service
 

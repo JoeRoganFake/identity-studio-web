@@ -55,7 +55,7 @@ class AppStrings {
   static const String aboutText1 =
       'Identity Studio je moderný beauty salón, kde sa krása stretáva s profesionalitou. Naším cieľom je poskytnúť každej klientke a klientovi individuálny prístup a starostlivosť na najvyššej úrovni.';
   static const String aboutText2 =
-      'Veríme, že každý človek je jedinečný a zaslúži si personalizovanú starostlivosť, ktorá podčiarkne jeho prirodzenú krásu. Náš tím skúsených špecialistov je tu pre vás.';
+      'Veríme, že každý človek je jedinečný a zaslúži si personalizovanú starostlivosť, ktorá podčiarkne jeho prirodzenú krásu. ';
   static const String aboutCtaMore = 'Naše služby';
 
   // Gallery
@@ -71,20 +71,25 @@ class AppStrings {
 
   // Reviews
   static const String reviewsSectionLabel = 'Recenzie';
-  static const String reviewsSectionTitle = 'Čo hovoria\nnaše klientky';
+  static const String reviewsSectionTitle = 'Čo hovoria\nnaši klienti';
   static const String reviewsGoogleLink = 'Čítať všetky recenzie na Google';
-  // TODO: Google Reviews URL (Google Places API or direct link)
+  static const String reviewsGoogleUrl =
+      'https://www.google.com/maps/place/Identity+studio/@48.1683498,17.148153,16.41z/data=!4m14!1m7!3m6!1s0x476c8ffc54e4ba73:0xa3da1de5712b7f89!2sIdentity+studio!8m2!3d48.168221!4d17.1494781!16s%2Fg%2F11kr67y9fd!3m5!1s0x476c8ffc54e4ba73:0xa3da1de5712b7f89!8m2!3d48.168221!4d17.1494781!16s%2Fg%2F11kr67y9fd?hl=en-SK&entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D';
 
   // Contact
   static const String contactSectionLabel = 'Kontakt';
   static const String contactSectionTitle = 'Navštívte nás';
-  static const String contactPhone = '+421 XXX XXX XXX'; // TODO: real phone number
-  static const String contactEmail = 'info@identitystudio.sk'; // TODO: real email
-  static const String contactAddress = 'TODO: Adresa salónu, Mesto'; // TODO: real address
+  static const String contactPhoneManicure = '+421 911 336 560';
+  static const String contactPhoneHair = '+421 940 830 509';
+  static const String contactEmail = 'identitystudiosk@gmail.com';
+  static const String contactAddress = 'Tomášikova 50, Bratislava, 831 04';
+  static const String contactMapsUrl =
+      'https://www.google.com/maps/place/Identity+studio/@48.1683498,17.148153,16.41z/data=!4m14!1m7!3m6!1s0x476c8ffc54e4ba73:0xa3da1de5712b7f89!2sIdentity+studio!8m2!3d48.168221!4d17.1494781!16s%2Fg%2F11kr67y9fd!3m5!1s0x476c8ffc54e4ba73:0xa3da1de5712b7f89!8m2!3d48.168221!4d17.1494781!16s%2Fg%2F11kr67y9fd?hl=en-SK&entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D';
   static const String contactInstagram = '@identity_beauty_studio';
   // TODO: Instagram URL: https://www.instagram.com/identity_beauty_studio
   static const String contactBooking = 'Rezervovať online';
-  // TODO: Fresha / Notino booking URL
+  static const String bookingUrlManicure = 'https://www.notino.sk/salony/identity-studio/';
+  static const String bookingUrlHair = 'https://www.notino.sk/salony/confi-hair/';
 
   // Opening hours — TODO: confirm real hours
   static const List<(String, String)> openingHours = [
@@ -102,7 +107,7 @@ class AppStrings {
 
   // Footer
   static const String footerRights =
-      '© 2024 Identity Studio. Všetky práva vyhradené.';
+      '© 2026 Identity Studio. Všetky práva vyhradené.';
   static const String footerGdpr = 'GDPR & Ochrana súkromia';
   static const String footerCookies = 'Cookies';
 }

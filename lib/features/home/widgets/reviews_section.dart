@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/constants/app_strings.dart';
@@ -12,18 +13,18 @@ class ReviewsSection extends StatelessWidget {
   // TODO: Replace with live data from Google Places API
   static const List<_Review> _reviews = [
     _Review(
-      author: 'Marta K.',
-      text: 'Úžasný salón! Profesionálny prístup a krásne výsledky. Určite sa vrátim.',
+      author: 'Medipodi Medipodi',
+      text: 'Confi Hair- kristinka  mi robi každý mesiac tie najkrajšie vlasy. Profesionálne služby na jednom mieste a láskavý prístup. Top',
       stars: 5,
     ),
     _Review(
-      author: 'Lucia B.',
-      text: 'Najlepšia manikúra v meste. Personál je milý a priestory sú nádherné.',
+      author: 'Jakub Šašov',
+      text: 'Velmi sikovna a prijemna pani kadernicka, hned pochopila, aky uces som si predstavoval. Odisiel som velmi spokojny.',
       stars: 5,
     ),
     _Review(
-      author: 'Zuzana M.',
-      text: 'Veľmi spokojná s farebnými vlasmi. Kaderníčka ma vypočula a splnila moje predstavy.',
+      author: 'Mária Štellárová',
+      text: 'Top! Odporúčam každému nechty aj vlasy.',
       stars: 5,
     ),
   ];
@@ -49,8 +50,12 @@ class ReviewsSection extends StatelessWidget {
           CustomButton(
             label: AppStrings.reviewsGoogleLink,
             variant: ButtonVariant.ghost,
-            // TODO: open Google Reviews URL
-            onTap: () {},
+            onTap: () async {
+              final url = Uri.parse(AppStrings.reviewsGoogleUrl);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              }
+            },
           ),
         ],
       ),
@@ -99,6 +104,7 @@ class _ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 220,
       padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -118,9 +124,13 @@ class _ReviewCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            '„${review.text}"',
-            style: AppTextStyles.bodyLarge.copyWith(fontStyle: FontStyle.italic),
+          Expanded(
+            child: Text(
+              '„${review.text}"',
+              style: AppTextStyles.bodyLarge.copyWith(fontStyle: FontStyle.italic),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+            ),
           ),
           const SizedBox(height: 16),
           Text('— ${review.author}', style: AppTextStyles.bodyMuted),

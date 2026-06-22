@@ -87,10 +87,21 @@ class _ContactInfo extends StatelessWidget {
         const SizedBox(height: 32),
         _ContactRow(
           icon: Icons.phone_outlined,
-          label: 'Telefón',
-          value: AppStrings.contactPhone, // TODO: real phone number
-          // TODO: launch tel:+421XXXXXXXXX
-          onTap: () {},
+          label: 'Manikúra & Pedikúra',
+          value: AppStrings.contactPhoneManicure,
+          onTap: () async {
+            final url = Uri.parse('tel:+421911336560');
+            if (await canLaunchUrl(url)) await launchUrl(url);
+          },
+        ),
+        _ContactRow(
+          icon: Icons.phone_outlined,
+          label: 'Kaderníctvo',
+          value: AppStrings.contactPhoneHair,
+          onTap: () async {
+            final url = Uri.parse('tel:+421940830509');
+            if (await canLaunchUrl(url)) await launchUrl(url);
+          },
         ),
         _ContactRow(
           icon: Icons.email_outlined,
@@ -102,9 +113,13 @@ class _ContactInfo extends StatelessWidget {
         _ContactRow(
           icon: Icons.location_on_outlined,
           label: 'Adresa',
-          value: AppStrings.contactAddress, // TODO: real address
-          // TODO: launch Google Maps URL
-          onTap: () {},
+          value: AppStrings.contactAddress,
+          onTap: () async {
+            final url = Uri.parse(AppStrings.contactMapsUrl);
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url, mode: LaunchMode.externalApplication);
+            }
+          },
         ),
         const SizedBox(height: 32),
         Text('Sociálne siete', style: AppTextStyles.headingSmall),
@@ -213,24 +228,28 @@ class _MapPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace with a Google Maps embed (WebView / iframe via HtmlElementView on web)
-    return Container(
-      height: 440,
-      decoration: BoxDecoration(
-        color: AppColors.lightBlush,
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.map_outlined, size: 48, color: AppColors.accent),
-          const SizedBox(height: 16),
-          Text(
-            'Google Maps\n(TODO: pridať mapu)',
-            textAlign: TextAlign.center,
-            style: AppTextStyles.bodyMuted,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () async {
+        final url = Uri.parse(AppStrings.contactMapsUrl);
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url, mode: LaunchMode.externalApplication);
+        }
+      },
+      child: Container(
+        height: 440,
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.border),
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: Stack(
+          children: [
+            SizedBox.expand(
+              child: HtmlElementView(
+                viewType: 'google-maps-iframe',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -23,7 +23,13 @@ final _router = GoRouter(
         ),
         GoRoute(
           path: AppRoutes.services,
-          pageBuilder: (_, _) => const NoTransitionPage(child: ServicesPage()),
+          pageBuilder: (_, state) => NoTransitionPage(
+            child: ServicesPage(
+              focusServiceIndex: int.tryParse(
+                state.uri.queryParameters['service'] ?? '',
+              ),
+            ),
+          ),
         ),
         GoRoute(
           path: AppRoutes.pricing,

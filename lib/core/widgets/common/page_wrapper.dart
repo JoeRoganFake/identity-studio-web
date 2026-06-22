@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../footer/app_footer.dart';
 import '../navbar/navbar_scroll_notifier.dart';
+import '../../services/scroll_to_top_service.dart';
 
 /// Wraps each page's content in a scroll view and appends the footer.
 class PageWrapper extends StatefulWidget {
@@ -14,17 +15,38 @@ class PageWrapper extends StatefulWidget {
 
 class _PageWrapperState extends State<PageWrapper> {
   double _lastPixels = 0;
+  late final ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _lastPixels = 0;
+    _scrollController = ScrollController();
+    
+    // Listen to scroll-to-top service
+    scrollToTopService.addListener(_scrollToTop);
+    
     // Reset header scroll state after the current build phase completes.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       navbarScrolled.value = false;
       navbarVisible.value = true;
     });
+  }
+
+  @override
+  void dispose() {
+    scrollToTopService.removeListener(_scrollToTop);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -44,6 +66,7 @@ class _PageWrapperState extends State<PageWrapper> {
         return false;
       },
       child: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

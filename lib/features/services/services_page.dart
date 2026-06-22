@@ -8,9 +8,16 @@ import '../../../core/widgets/common/placeholder_image.dart';
 import '../../../core/widgets/common/page_wrapper.dart';
 import '../../../core/widgets/common/custom_button.dart';
 
-class ServicesPage extends StatelessWidget {
-  const ServicesPage({super.key});
+class ServicesPage extends StatefulWidget {
+  final int? focusServiceIndex;
 
+  const ServicesPage({super.key, this.focusServiceIndex});
+
+  @override
+  State<ServicesPage> createState() => _ServicesPageState();
+}
+
+class _ServicesPageState extends State<ServicesPage> {
   static const List<_ServiceDetail> _services = [
     _ServiceDetail(
       name: AppStrings.serviceManicure,
@@ -49,6 +56,30 @@ class ServicesPage extends StatelessWidget {
     ),
   ];
 
+  late final List<GlobalKey> _serviceKeys;
+
+  @override
+  void initState() {
+    super.initState();
+    _serviceKeys = List.generate(_services.length, (_) => GlobalKey());
+    if (widget.focusServiceIndex != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToService());
+    }
+  }
+
+  void _scrollToService() {
+    final idx = widget.focusServiceIndex;
+    if (idx == null || idx < 0 || idx >= _serviceKeys.length) return;
+    final ctx = _serviceKeys[idx].currentContext;
+    if (ctx == null) return;
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+      alignment: 0.15,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
@@ -80,6 +111,7 @@ class ServicesPage extends StatelessWidget {
                 .entries
                 .map(
                   (e) => Padding(
+                    key: _serviceKeys[e.key],
                     padding: const EdgeInsets.only(bottom: 48),
                     child: _ServiceDetailRow(
                       service: e.value,
