@@ -66,9 +66,13 @@ class AppFooter extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            _footerLink(AppStrings.footerGdpr, () {}), // TODO: GDPR page
+            _footerLink(AppStrings.footerGdpr, () {
+              context.go(AppRoutes.privacyPolicy);
+            }),
             const SizedBox(width: 24),
-            _footerLink(AppStrings.footerCookies, () {}), // TODO: Cookies policy
+            _footerLink(AppStrings.footerCookies, () {
+              context.go(AppRoutes.cookiesPolicy);
+            }),
           ],
         ),
       ],
@@ -93,12 +97,29 @@ class AppFooter extends StatelessWidget {
         const SizedBox(height: 40),
         Container(height: 1, color: const Color(0xFF3A3A3A)),
         const SizedBox(height: 24),
-        Text(
-          AppStrings.footerRights,
-          style: AppTextStyles.bodyMuted.copyWith(
-            color: const Color(0xFF6E6E6E),
-            fontSize: 12,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppStrings.footerRights,
+              style: AppTextStyles.bodyMuted.copyWith(
+                color: const Color(0xFF6E6E6E),
+                fontSize: 12,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                _footerLink(AppStrings.footerGdpr, () {
+                  context.go(AppRoutes.privacyPolicy);
+                }),
+                const SizedBox(width: 24),
+                _footerLink(AppStrings.footerCookies, () {
+                  context.go(AppRoutes.cookiesPolicy);
+                }),
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -158,8 +179,9 @@ class AppFooter extends StatelessWidget {
           style: AppTextStyles.label.copyWith(color: AppColors.white),
         ),
         const SizedBox(height: 20),
-        _contactRow(Icons.phone_outlined, AppStrings.contactPhoneHair),
-        _contactRow(Icons.email_outlined, AppStrings.contactEmail),
+        _contactPhoneRowWithLabel(context, 'Manikúra a Pedikúra', AppStrings.contactPhoneManicure),
+        _contactPhoneRowWithLabel(context, 'Kaderníctvo', AppStrings.contactPhoneHair),
+        _contactEmailRow(context),
         _contactAddressRow(context),
         const SizedBox(height: 20),
         _mapLink(context),
@@ -245,22 +267,88 @@ class AppFooter extends StatelessWidget {
     );
   }
 
-  Widget _contactRow(IconData icon, String value) {
+  Widget _contactPhoneRowWithLabel(BuildContext context, String label, String phoneNumber) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 14, color: AppColors.accent),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              value,
-              style: AppTextStyles.bodyMuted
-                  .copyWith(color: const Color(0xFF8C8C8C)),
+      child: GestureDetector(
+        onTap: () async {
+          await Clipboard.setData(
+            ClipboardData(text: phoneNumber),
+          );
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Telefón skopírovaný'),
+                duration: const Duration(milliseconds: 1500),
+              ),
+            );
+          }
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.phone_outlined, size: 14, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: AppTextStyles.bodyMuted.copyWith(
+                      color: const Color(0xFF8C8C8C),
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    phoneNumber,
+                    style: AppTextStyles.bodyMuted.copyWith(
+                      color: AppColors.primaryPink,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _contactEmailRow(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: GestureDetector(
+        onTap: () async {
+          await Clipboard.setData(
+            const ClipboardData(text: AppStrings.contactEmail),
+          );
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text('Email skopírovaný'),
+                duration: const Duration(milliseconds: 1500),
+              ),
+            );
+          }
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.email_outlined, size: 14, color: AppColors.accent),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                AppStrings.contactEmail,
+                style: AppTextStyles.bodyMuted.copyWith(
+                  color: AppColors.primaryPink,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

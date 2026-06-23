@@ -110,4 +110,93 @@ class AppStrings {
       '© 2026 Identity Studio. Všetky práva vyhradené.';
   static const String footerGdpr = 'GDPR & Ochrana súkromia';
   static const String footerCookies = 'Cookies';
+
+  // GDPR & Cookies
+  static const String cookieBannerTitle = 'Súbory cookies';
+  static const String cookieBannerMessage =
+      'Používame cookies na zlepšenie vášho používateľského zážitku, analýzu návštevnosti a personalizáciu obsahu. Pokračovaním v prehliadaní súhlasíte s našimi zásadami.';
+  static const String cookieAcceptAll = 'Prijať všetko';
+  static const String cookieAcceptEssential = 'Iba nevyhnutné';
+  static const String cookieViewDetails = 'Podrobnosti';
+  static const String cookiePolicyLink = 'Politika cookies';
+  static const String privacyPolicyLink = 'Ochrana údajov';
+
+  // Privacy Policy
+  static const String privacyPolicyTitle = 'Ochrana osobných údajov';
+  static const String privacyPolicyLastUpdated = 'Posledná aktualizácia: ';
+  static const String privacyPolicyContent = '''Ochrana osobných údajov
+
+Spoločnosť Identity Studio si cení vašu súkromie a je odhodlaná dodržiavať všetky príslušné zákony o ochrane údajov vrátane Všeobecného nariadenia o ochrane údajov (GDPR).
+
+1. Zhromaždovanie údajov
+Zbierame osobné údaje iba vtedy, keď sú potrebné na poskytovanie našich služieb. Patria sem:
+• Kontaktné informácie (meno, email, telefón)
+• Informácie o rezerváciách
+• Preferencie klienta
+
+2. Používanie údajov
+Vaše údaje používame na:
+• Poskytnúť a vylepšiť naše služby
+• Komunikáciu s vami
+• Obchodný marketing (s vašim súhlasom)
+• Compliance so zákonnými požiadavkami
+
+3. Bezpečnosť
+Vaše osobné údaje sú chránené priemyselnými štandardmi bezpečnosti. Prístup k ním majú iba oprávnení zamestnanci.
+
+4. Vaše práva
+Podľa GDPR máte právo na:
+• Prístup k vašim údajom
+• Opravu nepresných údajov
+• Výmaz údajov
+• Obmedzenie spracúvania
+• Prenosnosť údajov
+• Možnosť namietať spracúvanie
+
+5. Kontakt
+Ak máte otázky ohľadom vašich osobných údajov, kontaktujte nás na: identitystudiosk@gmail.com
+
+''';
+
+  // Cookies Policy
+  static const String cookiesPolicyTitle = 'Politika cookies';
+  static const String cookiesPolicyLastUpdated = 'Posledná aktualizácia: ';
+  static const String cookiesPolicyContent = '''Politika cookies
+
+Cookies sú malé textové súbory uložené na vašom zariadení, keď navštívite webovú stránku. Pomáhajú nám zlepšiť váš zážitok.
+
+1. Typy cookies
+Používame nasledujúce typy cookies:
+
+Nevyhnutné cookies:
+• Tieto cookies sú potrebné na správnu funkciu webovej stránky
+• Zahŕňajú bezpečnosť a preferencie relácií
+• Nemôžu byť deaktivované
+
+Analytické cookies:
+• Pomáhajú nám pochopiť, ako používatelia interagujú s našou stránkou
+• Zbierajú anonymné údaje o návštevnosti
+• Pomocou Google Analytics
+
+Marketingové cookies:
+• Používajú sa na sledovanie efektívnosti reklamy
+• Pomáhajú personalizovať obsah
+• Môžu byť deaktivované
+
+2. Spravovanie cookies
+Väčšina prehliadačov vám umožňuje:
+• Vidieť, aké cookies sú uložené
+• Odstrániť cookies
+• Blokovať cookies
+
+3. Tretie strany
+Naši partneri (Google, sociálne siete) môžu používať cookies. Máte kontrolu cez nastavenia vášho prehliadača.
+
+4. Odvolanie súhlasu
+Môžete kedykoľvek zmeniť vaše preferencie týkajúce sa cookies.
+
+5. Kontakt
+Pre otázky kontaktujte: identitystudiosk@gmail.com
+
+''';
 }

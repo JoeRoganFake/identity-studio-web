@@ -32,6 +32,56 @@ class _GalleryPageState extends State<GalleryPage> {
     _galleryImages.shuffle();
   }
 
+  void _showImageModal(BuildContext context, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.all(16),
+        child: Stack(
+          children: [
+            // Close button
+            Positioned(
+              top: 16,
+              right: 16,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: const Icon(
+                    Icons.close,
+                    color: AppColors.primaryPink,
+                    size: 24,
+                  ),
+                ),
+              ),
+            ),
+            // Image
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Center(
+                    child: Text(
+                      'Image failed to load',
+                      style: AppTextStyles.bodyLarge,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
@@ -100,39 +150,44 @@ class _GalleryPageState extends State<GalleryPage> {
                   mainAxisSpacing: isMobile ? 8 : 12,
                 ),
                 itemCount: _galleryImages.length,
-                itemBuilder: (_, i) => Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cream,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      _galleryImages[i],
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Center(
-                        child: Text(
-                          'Image\nfailed',
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.bodyMuted,
+                itemBuilder: (_, i) => GestureDetector(
+                  onTap: () => _showImageModal(context, _galleryImages[i]),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.cream,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        _galleryImages[i],
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Center(
+                          child: Text(
+                            'Image\nfailed',
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.bodyMuted,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ).animate().fadeIn(delay: Duration(milliseconds: 60 * i)),
+                  ).animate().fadeIn(delay: Duration(milliseconds: 60 * i)),
+                ),
               ),
               const SizedBox(height: 52),
-              CustomButton(
-                label: AppStrings.galleryInstagram,
-                variant: ButtonVariant.outlined,
-                onTap: () async {
-                  final url = Uri.parse(
-                    'https://www.instagram.com/identity_beauty_studio/?hl=en',
-                  );
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url, mode: LaunchMode.externalApplication);
-                  }
-                },
+              Center(
+                child: CustomButton(
+                  label: AppStrings.galleryInstagram,
+                  variant: ButtonVariant.outlined,
+                  onTap: () async {
+                    final url = Uri.parse(
+                      'https://www.instagram.com/identity_beauty_studio/?hl=en',
+                    );
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url, mode: LaunchMode.externalApplication);
+                    }
+                  },
+                ),
               ),
             ],
           ),

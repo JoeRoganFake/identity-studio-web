@@ -4,8 +4,8 @@ import '../../theme/app_text_styles.dart';
 
 enum ButtonVariant { filled, outlined, ghost }
 
-const _kButtonWidth = 200.0;
-const _kButtonHeight = 52.0;
+const _kButtonWidth = 240.0;
+const _kButtonHeight = 56.0;
 
 class CustomButton extends StatelessWidget {
   final String label;
@@ -35,7 +35,7 @@ class CustomButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryPink,
               foregroundColor: AppColors.white,
-              padding: EdgeInsets.zero,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.zero,
               ),
@@ -44,6 +44,7 @@ class CustomButton extends StatelessWidget {
             child: Text(
               label.toUpperCase(),
               style: labelStyle.copyWith(color: AppColors.white),
+              textAlign: TextAlign.center,
             ),
           ),
         );
@@ -149,14 +150,18 @@ class _OutlinedHoverButtonState extends State<_OutlinedHoverButton>
               ),
               // Label
               Center(
-                child: AnimatedBuilder(
-                  animation: _fill,
-                  builder: (_, __) => Text(
-                    widget.label.toUpperCase(),
-                    style: widget.labelStyle.copyWith(
-                      color: _fill.value > 0.5
-                          ? AppColors.white
-                          : widget.textColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: AnimatedBuilder(
+                    animation: _fill,
+                    builder: (_, __) => Text(
+                      widget.label.toUpperCase(),
+                      style: widget.labelStyle.copyWith(
+                        color: _fill.value > 0.5
+                            ? AppColors.white
+                            : widget.textColor,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),

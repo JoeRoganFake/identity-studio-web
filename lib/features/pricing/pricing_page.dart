@@ -11,41 +11,80 @@ class PricingPage extends StatelessWidget {
 
   // TODO: Update all prices with real values confirmed by the salon
   static const List<_Category> _categories = [
-    _Category(name: 'Manikúra', items: [
-      _Item('Klasická manikúra', '15 €'),
-      _Item('Gél / Shellac', '25 €'),
-      _Item('Nail art – jednoduchý', '5 €'),
-      _Item('Nail art – zložitý', '10 €+'),
-      _Item('Predĺženie nechtov', '40 €+'),
-      _Item('Odstránenie gélu', '10 €'),
+    _Category(name: 'MANIKÚRA', items: [
+      _Item('Hibková - výživný lak', '30 €'),
+      _Item('Hibková - farebný lak', '35 €'),
+      _Item('Pánska', '30 €'),
+      _Item('Gellak jednofarebný', '48 €'),
+      _Item('Gellak "francúzska"', '53 €'),
     ]),
-    _Category(name: 'Pedikúra', items: [
-      _Item('Klasická pedikúra', '20 €'),
-      _Item('Medicínska pedikúra', '30 €'),
-      _Item('Gélová pedikúra', '30 €'),
-      _Item('Relaxačný zábal', '15 €'),
+    _Category(name: 'GÉLOVÉ NECHTY', items: [
+      _Item('Nové "S"', '60 €'),
+      _Item('Nové "M"', '65 €'),
+      _Item('Nové "L"', '75 €'),
+      _Item('Doplnenie "S"', '50 €'),
+      _Item('Doplnenie "M"', '55 €'),
+      _Item('Doplnenie "L"', '65 €'),
     ]),
-    _Category(name: 'Dámske kaderníctvo', items: [
-      _Item('Strih + fúkanie', '25 €+'),
-      _Item('Farbenie celé', '45 €+'),
-      _Item('Melírovanie / Balayage', '60 €+'),
-      _Item('Keratin', '80 €+'),
-      _Item('Regeneračné ošetrenie', '20 €+'),
-      _Item('Spoločenský účes', '35 €+'),
+    _Category(name: 'PRÍPLATKY', items: [
+      _Item('Francúzska', '5 €'),
+      _Item('Dizajn / 1 necht', 'od 1 €'),
+      _Item('Pigmenty, Babyboomer na všetky nechty', '7 €'),
+      _Item('Oprava / 1 necht', '5 €'),
+      _Item('Odstránenie', '5 €'),
+      _Item('Odstránenie z iného salóna', '10 €'),
     ]),
-    _Category(name: 'Pánske kaderníctvo', items: [
-      _Item('Strih', '12 €'),
-      _Item('Strih + úprava brady', '18 €'),
-      _Item('Úprava brady / fúzov', '10 €'),
-      _Item('Farbenie', '20 €+'),
+    _Category(name: 'ESTETICKÁ PEDIKÚRA', items: [
+      _Item('Hygienická', '38 €'),
+      _Item('Hygienická - lak výživný', '40 €'),
+      _Item('Hygienická - lak farebný', '45 €'),
+      _Item('Gellak', '50 €'),
+      _Item('Gellak francúzska', '55 €'),
+      _Item('Odstránenie - lak výživný', '40 €'),
     ]),
-    _Category(name: 'Beauty služby', items: [
-      _Item('Čistenie pleti', '35 €'),
-      _Item('Úprava obočia', '8 €'),
-      _Item('Farbenie obočia a rias', '12 €'),
-      _Item('Laminovanie rias', '40 €'),
-      _Item('Laminovanie obočia', '35 €'),
-      _Item('Permanentný make-up', '120 €+'),
+    _Category(name: 'BEZ OSETRENIA PLOSKY', items: [
+      _Item('Lak farebný', '40 €'),
+      _Item('Gellak', '45 €'),
+      _Item('Gellak francúzska', '50 €'),
+      _Item('Odstránenie - lak výživný', '35 €'),
+    ]),
+    _Category(name: 'EXTRA POPLATKY', items: [
+      _Item('Poplatok za nedodržanie termínu', '20 €'),
+      _Item('Modelácia v trvani 3 hod a viac', 'od 5 €'),
+    ]),
+    _Category(name: 'FARBENIE', items: [
+      _Item('Odrasty', '65 €'),
+      _Item('Celá dĺžka', '95 €'),
+      _Item('Tónovanie', '55 €'),
+    ]),
+    _Category(name: 'ODFARBOVANIE', items: [
+      _Item('Balayage', 'od 165 €'),
+      _Item('Odfarbovanie', 'od 150 €'),
+    ]),
+    _Category(name: 'MELÍR', items: [
+      _Item('T zóna', '90 €'),
+      _Item('Polovica hlavy', '125 €'),
+      _Item('Celá hlava', '155 €'),
+    ]),
+    _Category(name: 'PRÍPLATKY (VLASY)', items: [
+      _Item('Extra čas', '15 €'),
+      _Item('Extra materiál', '15 €'),
+    ]),
+    _Category(name: 'STRIH', items: [
+      _Item('Dámsky klasik', '55 €'),
+      _Item('Dámsky extra zmena', '70 €'),
+      _Item('Pánsky', '25 €'),
+      _Item('Strih k službe', '30 €'),
+      _Item('Zastrihnutie končekov k službe', '15 €'),
+    ]),
+    _Category(name: 'ÚPRAVA VLASOV', items: [
+      _Item('Fúkaná klasika', '25 €'),
+      _Item('Fúkaná vlny', '30 €'),
+      _Item('Spoločenský účes', '45 €'),
+      _Item('Svadobný účes', '55 €'),
+    ]),
+    _Category(name: 'STAROSTLIVOSŤ', items: [
+      _Item('Rekonštrukčná kúra', '35 €'),
     ]),
   ];
 
@@ -76,26 +115,58 @@ class PricingPage extends StatelessWidget {
           ),
           child: Column(
             children: [
-              ..._categories.asMap().entries.map(
+              // NAILS SECTION
+              Text(
+                'STAROSTLIVOSŤ - NECHTY',
+                style: AppTextStyles.headingMedium.copyWith(
+                  fontSize: 20,
+                  color: AppColors.darkText,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const SizedBox(height: 24),
+              ..._categories.asMap().entries
+                  .where((e) => [
+                    'MANIKÚRA',
+                    'GÉLOVÉ NECHTY',
+                    'PRÍPLATKY',
+                    'ESTETICKÁ PEDIKÚRA',
+                    'BEZ OSETRENIA PLOSKY',
+                    'EXTRA POPLATKY'
+                  ].contains(e.value.name))
+                  .map(
                     (e) => _CategorySection(category: e.value)
                         .animate()
                         .fadeIn(delay: Duration(milliseconds: 80 * e.key)),
                   ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppColors.lightBlush,
-                  border: Border.all(color: AppColors.border),
-                ),
-                child: Text(
-                  AppStrings.pricingNote,
-                  style: AppTextStyles.bodyMuted.copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
-                  textAlign: TextAlign.center,
+              const SizedBox(height: 60),
+              // HAIR SECTION
+              Text(
+                'KADERNÍCTVO',
+                style: AppTextStyles.headingMedium.copyWith(
+                  fontSize: 20,
+                  color: AppColors.darkText,
+                  letterSpacing: 1.5,
                 ),
               ),
+              const SizedBox(height: 24),
+              ..._categories.asMap().entries
+                  .where((e) => [
+                    'FARBENIE',
+                    'ODFARBOVANIE',
+                    'MELÍR',
+                    'PRÍPLATKY (VLASY)',
+                    'STRIH',
+                    'ÚPRAVA VLASOV',
+                    'STAROSTLIVOSŤ'
+                  ].contains(e.value.name))
+                  .map(
+                    (e) => _CategorySection(category: e.value)
+                        .animate()
+                        .fadeIn(delay: Duration(milliseconds: 80 * e.key)),
+                  ),
+              const SizedBox(height: 60),
+            
             ],
           ),
         ),
