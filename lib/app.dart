@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'core/constants/app_routes.dart';
 import 'core/constants/app_strings.dart';
 import 'core/services/cookie_preferences_service.dart';
@@ -18,9 +17,6 @@ import 'features/cookies_policy/cookies_policy_page.dart';
 
 final _router = GoRouter(
   initialLocation: AppRoutes.home,
-  observers: [
-    FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-  ],
   routes: [
     ShellRoute(
       builder: (context, state, child) => _AppShell(child: child),
@@ -116,24 +112,6 @@ class _AppShellState extends State<_AppShell> {
     setState(() {
       _showCookieBanner = false;
     });
-    // Enable Google Analytics for detailed tracking
-    _enableAnalytics();
-  }
-
-  void _enableAnalytics() {
-    try {
-      FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
-      // Log analytics acceptance event
-      FirebaseAnalytics.instance.logEvent(
-        name: 'gdpr_cookies_accepted',
-        parameters: {
-          'acceptance_type': 'all',
-          'timestamp': DateTime.now().toIso8601String(),
-        },
-      );
-    } catch (e) {
-      debugPrint('Error initializing analytics: $e');
-    }
   }
 
   void _handleAcceptEssential() {
@@ -141,24 +119,6 @@ class _AppShellState extends State<_AppShell> {
     setState(() {
       _showCookieBanner = false;
     });
-    // Disable analytics when only essential cookies are accepted
-    _disableAnalytics();
-  }
-
-  void _disableAnalytics() {
-    try {
-      FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(false);
-      // Log analytics rejection event
-      FirebaseAnalytics.instance.logEvent(
-        name: 'gdpr_cookies_rejected',
-        parameters: {
-          'acceptance_type': 'essential_only',
-          'timestamp': DateTime.now().toIso8601String(),
-        },
-      );
-    } catch (e) {
-      debugPrint('Error disabling analytics: $e');
-    }
   }
 
   @override
