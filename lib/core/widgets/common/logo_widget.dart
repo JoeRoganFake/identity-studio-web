@@ -46,7 +46,6 @@ class _LogoMarkPainter extends CustomPainter {
     final double mH = size.height * 0.58;
     final double mLeft = (size.width - mW) / 2;
     final double mTop = (size.height - mH) / 2;
-    final double mRight = mLeft + mW;
     final double mBottom = mTop + mH;
 
     // "I" — thin vertical bar, left ~28% of monogram width
